@@ -1,0 +1,15 @@
+{
+  "name": "brandwatch-react-app",
+  "version": "1.0.0",
+  "description": "A starting point for creating a react app in Brandwatch",
+  "main": "",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandwatchLtd/brandwatch-react-app.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/BrandwatchLtd/brandwatch-react-app#readme"
+}

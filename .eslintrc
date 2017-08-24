@@ -2,6 +2,10 @@
   "parser": "babel-eslint",
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "plugins": ["react"],
+  "globals": {
+    "document": true,
+    "module": true,
+  },
   "rules": {
     "comma-dangle": [2, "always-multiline"],
     "comma-spacing": [2],

@@ -2,10 +2,14 @@
   "name": "brandwatch-react-app",
   "version": "1.0.0",
   "description": "A starting point for creating a react app in Brandwatch",
+  "engines": {
+    "node": ">=8.4.0"
+  },
   "main": "",
   "scripts": {
     "start": "webpack-dev-server",
-    "test": ""
+    "lint": "yarn run lint:js",
+    "lint:js": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -14,16 +18,19 @@
   "license": "MIT",
   "homepage": "https://github.com/BrandwatchLtd/brandwatch-react-app#readme",
   "dependencies": {
-    "babel": "^6.23.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel": "^6.23.0",
+    "eslint-plugin-react": "^7.3.0",
+    "eslint": "^4.5.0",
     "html-webpack-plugin": "^2.30.1",
-    "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-hot-loader": "^3.0.0-beta.7",
-    "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1"
+    "react": "^15.6.1",
+    "webpack-dev-server": "^2.7.1",
+    "webpack": "^3.5.5"
   }
 }

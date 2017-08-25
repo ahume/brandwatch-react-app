@@ -5,6 +5,8 @@
   "globals": {
     "document": true,
     "module": true,
+    "__dirname": true,
+    "require": true,
   },
   "env": {
     "jest": true,

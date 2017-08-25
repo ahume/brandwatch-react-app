@@ -5,6 +5,14 @@
   "engines": {
     "node": ">=8.4.0"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "^.+\\.css?$": "identity-obj-proxy"
+    }
+  },
   "main": "",
   "scripts": {
     "start": "webpack-dev-server",

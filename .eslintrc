@@ -6,6 +6,9 @@
     "document": true,
     "module": true,
   },
+  "env": {
+    "jest": true,
+  },
   "rules": {
     "comma-dangle": [2, "always-multiline"],
     "comma-spacing": [2],

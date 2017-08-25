@@ -9,6 +9,7 @@ module.exports = {
     contentBase: resolve(__dirname, 'dist'),
     historyApiFallback: true,
   },
+  devtool: 'source-map',
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',

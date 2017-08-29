@@ -2,14 +2,15 @@
   "parser": "babel-eslint",
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "plugins": ["react"],
-  "globals": {
-    "document": true,
-    "module": true,
-    "__dirname": true,
-    "require": true,
-  },
   "env": {
-    "jest": true,
+    "amd": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "__AUTH_AUDIENCE__": true,
+    "__AUTH_DOMAIN__": true
   },
   "rules": {
     "comma-dangle": [2, "always-multiline"],

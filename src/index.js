@@ -7,6 +7,7 @@ import createHistory from 'history/createBrowserHistory';
 import { Route } from 'react-router';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { Provider } from 'react-redux';
+import BrandwatchReactAuth from 'brandwatch-react-auth';
 import App from './containers/App';
 import reducers from './store';
 
@@ -22,13 +23,18 @@ const store = createStore(
 function render(Component) {
   ReactDOM.render(
     <AppContainer>
-      <Provider store={ store }>
-        <ConnectedRouter history={ history }>
-          <div>
-            <Route component={ Component } exact path="/" />
-          </div>
-        </ConnectedRouter>
-      </Provider>
+      <BrandwatchReactAuth
+          audience={ __AUTH_AUDIENCE__ }
+          domain={ __AUTH_DOMAIN__ }
+          onCreateStore={ () => {} }>
+        <Provider store={ store }>
+          <ConnectedRouter history={ history }>
+            <div>
+              <Route component={ Component } exact path="/" />
+            </div>
+          </ConnectedRouter>
+        </Provider>
+      </BrandwatchReactAuth>
     </AppContainer>,
     document.getElementById('root')
   );

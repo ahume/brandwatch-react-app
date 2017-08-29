@@ -1028,6 +1028,14 @@ braces@^1.8.2:
     preserve "^0.2.0"
     repeat-element "^1.1.2"
 
+brandwatch-react-auth@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/brandwatch-react-auth/-/brandwatch-react-auth-1.0.3.tgz#3509fd873c82dffad0988cc3639b165c5bb34c39"
+  dependencies:
+    jwt-decode "^2.2.0"
+    react "^15.6.1"
+    viziaauth "^0.1.1"
+
 brorand@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
@@ -2566,6 +2574,12 @@ forwarded@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.0.tgz#19ef9874c4ae1c297bcf078fde63a09b66a84363"
 
+"frame-rpc@github:BrandwatchLtd/frame-rpc#14a61db8c84130b335d5fb55090186aebfec5af6":
+  version "1.4.0"
+  resolved "https://codeload.github.com/BrandwatchLtd/frame-rpc/tar.gz/14a61db8c84130b335d5fb55090186aebfec5af6"
+  dependencies:
+    isarray "~0.0.1"
+
 fresh@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.0.tgz#f474ca5e6a9246d6fd8e0953cfa9b9c805afa78e"
@@ -3262,7 +3276,7 @@ is-utf8@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-utf8/-/is-utf8-0.2.1.tgz#4b0da1442104d1b336340e80797e865cf39f7d72"
 
-isarray@0.0.1:
+isarray@0.0.1, isarray@~0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
 
@@ -3696,6 +3710,10 @@ jsx-ast-utils@^2.0.0:
 just-extend@^1.1.22:
   version "1.1.22"
   resolved "https://registry.yarnpkg.com/just-extend/-/just-extend-1.1.22.tgz#3330af756cab6a542700c64b2e4e4aa062d52fff"
+
+jwt-decode@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
 
 kind-of@^3.0.2:
   version "3.2.2"
@@ -6654,6 +6672,12 @@ verror@1.10.0:
 viewport-dimensions@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/viewport-dimensions/-/viewport-dimensions-0.2.0.tgz#de740747db5387fd1725f5175e91bac76afdf36c"
+
+viziaauth@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/viziaauth/-/viziaauth-0.1.1.tgz#15e49a12d4d5167d371ccc5c73c1eda2cedf2910"
+  dependencies:
+    frame-rpc "github:BrandwatchLtd/frame-rpc#14a61db8c84130b335d5fb55090186aebfec5af6"
 
 vm-browserify@0.0.4:
   version "0.0.4"

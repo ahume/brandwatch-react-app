@@ -36,6 +36,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      __AUTH_AUDIENCE__: `"${process.env.AUTH_AUDIENCE}"`,
+      __AUTH_DOMAIN__: `"${process.env.AUTH_DOMAIN}"`,
+    }),
     new HtmlWebpackPlugin({
       favicon: 'favicon.ico',
       template: 'index.ejs',

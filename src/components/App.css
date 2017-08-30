@@ -1,0 +1,5 @@
+.bw-layout-container {
+  padding: var(--page-padding-vertical) var(--page-padding-horizontal);
+  width: 100%;
+  max-width: var(--layout-width-medium);
+}

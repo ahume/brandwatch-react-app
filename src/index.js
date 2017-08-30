@@ -11,7 +11,7 @@ import App from './components/App';
 const history = createHistory();
 const store = configureStore(history);
 
-function render(Component) {
+function render(AppComponent) {
   ReactDOM.render(
     <BrandwatchReactAuth
         audience={ __AUTH_AUDIENCE__ }
@@ -19,7 +19,7 @@ function render(Component) {
       <AppContainer>
         <Provider store={ store }>
           <ConnectedRouter history={ history }>
-            <Component />
+            <AppComponent />
           </ConnectedRouter>
         </Provider>
       </AppContainer>

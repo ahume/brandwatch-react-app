@@ -6,7 +6,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 
 module.exports = {
-  entry: './src/static.js',
+  entry: [
+    'babel-polyfill',
+    './src/static.js',
+  ],
   module: {
     rules: [{
       test: /\.js$/,

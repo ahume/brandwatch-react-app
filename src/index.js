@@ -6,7 +6,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import BrandwatchReactAuth from 'brandwatch-react-auth';
 import configureStore from './store/configure';
-import App from './containers/App';
+import App from './components/App';
 
 const history = createHistory();
 const store = configureStore(history);
@@ -31,5 +31,5 @@ function render(Component) {
 render(App);
 
 if (module.hot) {
-  module.hot.accept('./containers/App', () => render(App));
+  module.hot.accept('./components/App', () => render(App));
 }

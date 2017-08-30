@@ -9,7 +9,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import BrandwatchReactAuth from 'brandwatch-react-auth';
 import template from './index.ejs';
 import configureStore from './store/configure';
-import App from './containers/App';
+import App from './components/App';
 
 if (typeof document !== 'undefined') {
   const history = createBrowserHistory();

@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   Base,
-  Button,
-  ButtonGroup,
   Grid,
   GridCell,
   Heading,
@@ -13,12 +11,6 @@ import {
 } from 'bw-axiom';
 
 export default class App extends Component {
-
-  static propTypes = {
-    count: PropTypes.number.isRequired,
-    onAdd: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-  };
 
   static contextTypes = {
     brandwatchAuthGetProfile: PropTypes.func.isRequired,
@@ -40,7 +32,6 @@ export default class App extends Component {
 
   render() {
     const { profile } = this.state;
-    const { count, onAdd, onRemove } = this.props;
 
     return (
       <Base space="x8" textCenter>
@@ -62,15 +53,7 @@ export default class App extends Component {
           </GridCell>
         </Grid>
 
-        <Paragraph>count <Strong>{ count }</Strong></Paragraph>
-        <ButtonGroup>
-          <Button data-tid="add-product" onClick={ () => onAdd(2) }>
-            Add
-          </Button>
-          <Button data-tid="remove-product" onClick={ () => onRemove(1) }>
-            Remove
-          </Button>
-        </ButtonGroup>
+        <Paragraph>count <Strong>2</Strong></Paragraph>
       </Base>
     );
   }

@@ -7,35 +7,14 @@ import {
   DockIconLink,
   DockItem,
   Platform,
-  UserMenu,
 } from 'bw-axiom';
 import './App.css';
 import CommitHistory from '../containers/CommitHistory';
-
+import UserMenu from '../containers/UserMenu';
 
 export default class App extends Component {
 
-  static contextTypes = {
-    brandwatchAuthGetProfile: PropTypes.func.isRequired,
-    brandwatchAuthLogout: PropTypes.func.isRequired,
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      profile: null,
-    };
-  }
-
-  componentDidMount() {
-    this.context.brandwatchAuthGetProfile().then((profile) => {
-      this.setState({ profile });
-    });
-  }
-
   render() {
-    const { profile } = this.state;
-
     return (
       <Platform>
         <Dock>
@@ -48,14 +27,7 @@ export default class App extends Component {
           </DockHeader>
           <DockFooter>
             <DockItem>
-              { profile && (
-                <UserMenu
-                    email={ profile.email }
-                    firstName={ profile.name }
-                    imageSrc={ profile.imageUrl }
-                    lastName=""
-                    onLogout={ () => this.context.brandwatchAuthLogout() } />
-              ) }
+              <UserMenu />
             </DockItem>
           </DockFooter>
         </Dock>

@@ -2,6 +2,7 @@
   "extends": ["eslint-config-axiom"],
   "globals": {
     "__AUTH_AUDIENCE__": true,
-    "__AUTH_DOMAIN__": true
+    "__AUTH_DOMAIN__": true,
+    "__DEVELOPMENT__": true
   }
 }

@@ -20,7 +20,10 @@ module.exports = {
     rules: [{
       test: /\.js$/,
       use: ['babel-loader'],
-      exclude: /node_modules/,
+      include: [
+        /src/,
+        /node_modules\/viziaauth/,
+      ],
     }, {
       test: /\.css$/,
       use: ['style-loader', 'css-loader', 'postcss-loader'],
@@ -36,13 +39,13 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'index.ejs',
+    }),
     new webpack.DefinePlugin({
       __AUTH_AUDIENCE__: `"${process.env.AUTH_AUDIENCE}"`,
       __AUTH_DOMAIN__: `"${process.env.AUTH_DOMAIN}"`,
-    }),
-    new HtmlWebpackPlugin({
-      favicon: 'favicon.ico',
-      template: 'index.ejs',
+      __DEVELOPMENT__: true,
     }),
   ],
 };

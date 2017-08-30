@@ -4,10 +4,12 @@
     "react",
     "stage-2"
   ],
-  "plugins": [
-    "react-hot-loader/babel"
-  ],
   "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    },
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]
     }

@@ -47,6 +47,7 @@ module.exports = {
       __AUTH_AUDIENCE__: `"${process.env.AUTH_AUDIENCE}"`,
       __AUTH_DOMAIN__: `"${process.env.AUTH_DOMAIN}"`,
       __DEVELOPMENT__: true,
+      __MIXPANEL_TOKEN__: `"${process.env.MIXPANEL_TOKEN}"`,
     }),
   ],
 };

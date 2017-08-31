@@ -3,6 +3,7 @@
   "globals": {
     "__AUTH_AUDIENCE__": true,
     "__AUTH_DOMAIN__": true,
-    "__DEVELOPMENT__": true
+    "__DEVELOPMENT__": true,
+    "__MIXPANEL_TOKEN__": true
   }
 }

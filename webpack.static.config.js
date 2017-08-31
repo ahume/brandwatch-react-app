@@ -55,6 +55,7 @@ module.exports = {
       __AUTH_AUDIENCE__: `"${process.env.AUTH_AUDIENCE}"`,
       __AUTH_DOMAIN__: `"${process.env.AUTH_DOMAIN}"`,
       __DEVELOPMENT__: false,
+      __MIXPANEL_TOKEN__: `"${process.env.MIXPANEL_TOKEN}"`,
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },

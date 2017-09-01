@@ -1,25 +1,31 @@
-import { makeActionCreator } from '../utils/actions';
+import { createAction, handleActions } from 'redux-actions';
 
 export const PROFILE_RETRIEVED = 'profile received';
 
 const initialState = {
   email: null,
+  id: null,
   name: null,
   imageUrl: null,
 };
 
-export const profileFetchSucceeded = makeActionCreator(PROFILE_RETRIEVED, 'profile');
+export const profileFetchSucceeded = createAction(
+  PROFILE_RETRIEVED,
+  (profile) => ({
+    email: profile.email,
+    id: profile.sub,
+    name: profile.name,
+    imageUrl: profile.imageUrl,
+  }),
+  () => ({
+    mixpanel: {
+      eventName: PROFILE_RETRIEVED,
+    },
+  })
+);
 
-export default function profile(state = initialState, { payload, type }) {
-  switch (type) {
-  case PROFILE_RETRIEVED:
-    return {
-      ...state,
-      email: payload.profile.email,
-      name: payload.profile.name,
-      imageUrl: payload.profile.imageUrl,
-    };
-  default:
-    return state;
-  }
-}
+export default handleActions({
+  [PROFILE_RETRIEVED]: (state, { payload }) => ({
+    ...payload,
+  }),
+}, initialState);

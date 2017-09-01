@@ -41,7 +41,7 @@ export default class CommitHistory extends Component {
           <Button
               circular="small"
               data-tid="refresh"
-              onClick={ onRefreshClick }
+              onClick={ () => onRefreshClick() }
               style="tertiary">
             <ButtonIcon name="refresh" />
           </Button>

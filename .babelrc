@@ -1,8 +1,22 @@
 {
+  "plugins": [
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ],
   "presets": [
-    ["es2015", { "modules": false }],
     "react",
-    "stage-2"
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": [
+          "last 2 Firefox versions",
+          "last 2 Chrome versions",
+          "last 2 Edge versions",
+          "last 2 Safari versions",
+          "IE 11"
+        ]
+      }
+    }]
   ],
   "env": {
     "development": {

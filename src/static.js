@@ -30,15 +30,16 @@ if (typeof document !== 'undefined') {
 }
 
 export default ({ path, webpackStats }) => {
-  const { hash } = webpackStats;
   const history = createMemoryHistory();
   const store = configureStore(history);
+
+  const assetFilenames = Object.keys(webpackStats.compilation.assets);
 
   return template({
     htmlWebpackPlugin: {
       options: {
-        stylesheet: `/assets/bundle.${hash}.min.css`,
-        script: `/assets/bundle.${hash}.min.js`,
+        stylesheet: assetFilenames.find(filename => filename.includes('.css')),
+        script: assetFilenames.find(filename => filename.includes('.js')),
         html: renderToString(
           <Provider store={ store }>
             <StaticRouter location={ path }>

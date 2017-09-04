@@ -21,7 +21,8 @@ export const commitsFetchedSucceded = createAction(
         url: author.html_url,
       },
     })),
-  })
+  }),
+  () => ({ mixpanel: { eventName: 'Commits fetched' } }),
 );
 
 const initialState = {

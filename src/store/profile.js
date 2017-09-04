@@ -17,11 +17,7 @@ export const profileFetchSucceeded = createAction(
     name: profile.name,
     imageUrl: profile.imageUrl,
   }),
-  () => ({
-    mixpanel: {
-      eventName: PROFILE_RETRIEVED,
-    },
-  })
+  () => ({ mixpanel: { eventName: 'App loaded' } })
 );
 
 export default handleActions({

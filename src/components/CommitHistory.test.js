@@ -5,7 +5,6 @@ import { ProgressInfinite } from 'bw-axiom';
 import Commit from './Commit';
 import CommitHistory from './CommitHistory';
 
-const sandbox = sinon.sandbox.create();
 let props;
 
 function render(props) {
@@ -16,14 +15,10 @@ beforeEach(() => {
   props = {
     commits: [{ id: '1' }, { id: '2' }],
     fetching: false,
-    onDeleteClick: sandbox.stub(),
-    onLoad: sandbox.stub(),
-    onRefreshClick: sandbox.stub(),
+    onDeleteClick: sinon.stub(),
+    onLoad: sinon.stub(),
+    onRefreshClick: sinon.stub(),
   };
-});
-
-afterEach(() => {
-  sandbox.restore();
 });
 
 describe('CommitHistory', () => {

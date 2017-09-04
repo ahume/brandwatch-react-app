@@ -4,8 +4,6 @@ import { shallow } from 'enzyme';
 import { UserMenu as UserMenuAxiom } from 'bw-axiom';
 import UserMenu from './UserMenu';
 
-const sandbox = sinon.sandbox.create();
-
 function render(props, opts = {}) {
   return shallow(<UserMenu { ...props } />, opts);
 }
@@ -19,20 +17,16 @@ describe('UserMenu', () => {
       email: 'a@b.co',
       imageUrl: 'http://a.png',
       name: 'Ace',
-      onProfileReceived: sandbox.stub(),
+      onProfileReceived: sinon.stub(),
     };
     opts = {
       lifecycleExperimental: true,
       context: {
-        brandwatchAuthGetProfile: sandbox.stub(),
-        brandwatchAuthLogout: sandbox.stub(),
+        brandwatchAuthGetProfile: sinon.stub(),
+        brandwatchAuthLogout: sinon.stub(),
       },
     };
     opts.context.brandwatchAuthGetProfile.resolves();
-  });
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   describe('UserMenu', () => {

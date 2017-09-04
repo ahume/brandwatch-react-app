@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import Commit from './Commit';
 
-const sandbox = sinon.sandbox.create();
 let props;
 
 function render(props) {
@@ -18,12 +17,8 @@ beforeEach(() => {
       avatar: '/a.png',
       login: 'A',
     },
-    onDeleteClick: sandbox.stub(),
+    onDeleteClick: sinon.stub(),
   };
-});
-
-afterEach(() => {
-  sandbox.restore();
 });
 
 describe('Commit', () => {

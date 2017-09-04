@@ -9,8 +9,8 @@ import {
   Platform,
 } from 'bw-axiom';
 import './App.css';
-import CommitHistory from '../containers/CommitHistory';
-import UserMenu from '../containers/UserMenu';
+import CommitHistory from '../CommitHistory';
+import UserMenu from '../UserMenu';
 
 export default class App extends Component {
 

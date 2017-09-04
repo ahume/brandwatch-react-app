@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { commitsFetchRequested, commitsDeleteRequested } from '../store/commits';
-import CommitHistory from '../components/CommitHistory';
+import { commitsFetchRequested, commitsDeleteRequested } from '../../store/commits';
+import CommitHistory from './CommitHistory';
 
 const mapStateToProps = ({ commits }) => ({
   fetching: commits.fetching,

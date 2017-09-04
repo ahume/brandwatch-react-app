@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { profileFetchSucceeded } from '../store/profile';
-import UserMenu from '../components/UserMenu';
+import { profileFetchSucceeded } from '../../store/profile';
+import UserMenu from './UserMenu';
 
 const mapStateToProps = ({ profile }) => ({
   email: profile.email,

@@ -43,11 +43,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.ejs',
     }),
-    new webpack.DefinePlugin({
-      __AUTH_AUDIENCE__: `"${process.env.AUTH_AUDIENCE}"`,
-      __AUTH_DOMAIN__: `"${process.env.AUTH_DOMAIN}"`,
-      __DEVELOPMENT__: true,
-      __MIXPANEL_TOKEN__: `"${process.env.MIXPANEL_TOKEN}"`,
+    new webpack.EnvironmentPlugin({
+      AUTH_AUDIENCE: 'brandwatch.com',
+      AUTH_DOMAIN: 'https://auth.vizia-stage.gcp0.bwcom.net/store',
+      MIXPANEL_TOKEN: null,
+      NODE_ENV: null,
     }),
   ],
 };

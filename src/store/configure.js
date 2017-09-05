@@ -11,8 +11,8 @@ export default (history) => {
   const middlewares = [sagaMiddleware, routerMiddleware];
   middlewares.push(createSagaMiddleware());
 
-  if (typeof document !== 'undefined' && __MIXPANEL_TOKEN__) {
-    middlewares.push(require('remimi')(__MIXPANEL_TOKEN__, {
+  if (typeof document !== 'undefined' && process.env.MIXPANEL_TOKEN) {
+    middlewares.push(require('remimi')(process.env.MIXPANEL_TOKEN, {
       uniqueIdSelector: ({ profile }) => profile.id,
       personSelector: ({ profile }) => ({
         clientId: profile.id,
@@ -25,7 +25,7 @@ export default (history) => {
     }));
   }
 
-  const finalCompose = __DEVELOPMENT__ ? composeWithDevTools : compose;
+  const finalCompose = process.env.NODE_ENV === 'production' ? compose : composeWithDevTools;
 
   const store = createStore(
     reducers,

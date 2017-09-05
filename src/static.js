@@ -17,8 +17,8 @@ if (typeof document !== 'undefined') {
 
   ReactDOM.render(
     <BrandwatchReactAuth
-        audience={ __AUTH_AUDIENCE__ }
-        domain={ __AUTH_DOMAIN__ }>
+        audience={ process.env.AUTH_AUDIENCE }
+        domain={ process.env.AUTH_DOMAIN }>
       <Provider store={ store }>
         <ConnectedRouter history={ history }>
           <App />

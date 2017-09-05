@@ -51,14 +51,11 @@ module.exports = {
       from: './src/assets',
       to: './assets',
     }]),
-    new webpack.DefinePlugin({
-      __AUTH_AUDIENCE__: `"${process.env.AUTH_AUDIENCE}"`,
-      __AUTH_DOMAIN__: `"${process.env.AUTH_DOMAIN}"`,
-      __DEVELOPMENT__: false,
-      __MIXPANEL_TOKEN__: `"${process.env.MIXPANEL_TOKEN}"`,
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
+    new webpack.EnvironmentPlugin({
+      AUTH_AUDIENCE: null,
+      AUTH_DOMAIN: null,
+      MIXPANEL_TOKEN: null,
+      NODE_ENV: null,
     }),
     new StaticSiteGeneratorPlugin(),
     new webpack.optimize.UglifyJsPlugin(),

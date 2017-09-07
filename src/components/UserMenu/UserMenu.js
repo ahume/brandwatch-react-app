@@ -13,19 +13,11 @@ export default class UserMenu extends Component {
     imageUrl: PropTypes.string,
     name: PropTypes.string,
     onChangePasswordClick: PropTypes.func.isRequired,
-    onProfileReceived: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
-    brandwatchAuthGetProfile: PropTypes.func.isRequired,
     brandwatchAuthLogout: PropTypes.func.isRequired,
   };
-
-  componentDidMount() {
-    const { onProfileReceived } = this.props;
-    const { brandwatchAuthGetProfile } = this.context;
-    brandwatchAuthGetProfile().then(onProfileReceived);
-  }
 
   render() {
     const {

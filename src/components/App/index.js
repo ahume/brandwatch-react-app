@@ -1,45 +1,15 @@
-import React, { Component } from 'react';
-import {
-  Canvas,
-  Dock,
-  DockFooter,
-  DockHeader,
-  DockIconLink,
-  DockItem,
-  Platform,
-} from 'bw-axiom';
-import './App.css';
-import CommitHistory from '../CommitHistory';
-import UserMenu from '../UserMenu';
-import ChangePassword from '../ChangePassword';
+import { connect } from 'react-redux';
+import { profileFetchSucceeded } from '../../store/profile';
+import App from './App';
 
-export default class App extends Component {
+const mapStateToProps = ({ profile }) => ({
+  email: profile.email,
+  name: profile.name,
+  imageUrl: profile.imageUrl,
+});
 
-  render() {
-    return (
-      <Platform>
-        <Dock>
-          <DockHeader>
-            <DockIconLink
-                active={ true }
-                data-tid="search"
-                icon="deck"
-                title="Search" />
-          </DockHeader>
-          <DockFooter>
-            <DockItem>
-              <UserMenu />
-            </DockItem>
-          </DockFooter>
-        </Dock>
-        <Canvas>
-          <div className="bw-layout-container">
-            <CommitHistory />
-          </div>
-        </Canvas>
+const mapDispatchToProps = {
+  onProfileReceived: profileFetchSucceeded,
+};
 
-        <ChangePassword />
-      </Platform>
-    );
-  }
-}
+export default connect(mapStateToProps, mapDispatchToProps)(App);

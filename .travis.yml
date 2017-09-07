@@ -7,3 +7,5 @@ script:
   - yarn lint
   - yarn test
   - yarn build
+after_success:
+- bash ./deploy/deploy_to_gcp.sh

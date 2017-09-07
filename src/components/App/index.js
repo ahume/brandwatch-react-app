@@ -11,6 +11,7 @@ import {
 import './App.css';
 import CommitHistory from '../CommitHistory';
 import UserMenu from '../UserMenu';
+import ChangePassword from '../ChangePassword';
 
 export default class App extends Component {
 
@@ -36,6 +37,8 @@ export default class App extends Component {
             <CommitHistory />
           </div>
         </Canvas>
+
+        <ChangePassword />
       </Platform>
     );
   }

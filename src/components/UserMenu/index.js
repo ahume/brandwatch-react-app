@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { profileFetchSucceeded } from '../../store/profile';
+import { uiOpenChangePasswordDialog } from '../../store/ui';
 import UserMenu from './UserMenu';
 
 const mapStateToProps = ({ profile }) => ({
@@ -10,6 +11,7 @@ const mapStateToProps = ({ profile }) => ({
 
 const mapDispatchToProps = {
   onProfileReceived: profileFetchSucceeded,
+  onChangePasswordClick: uiOpenChangePasswordDialog,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

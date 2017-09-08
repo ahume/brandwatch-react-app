@@ -1,0 +1,14 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: latest
+
+inputs:
+  - name: gcs-resource
+
+run:
+  path: brandwatch-react-app/ci/scripts/run_stage_deploy.sh

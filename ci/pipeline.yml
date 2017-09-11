@@ -1,0 +1,99 @@
+resource_types:
+  - name: npm-cache
+    type: docker-image
+    source:
+      repository: ymedlop/npm-cache-resource
+      tag: latest
+      yarn-support: true
+  - name: google-cloud-storage
+    type: docker-image
+    source:
+      repository: frodenas/gcs-resource
+
+resources:
+  - name: brandwatch-react-app
+    type: git
+    source: &repo-source
+      uri: https://github.com/thatguynamedandy/brandwatch-react-app
+      check_every: 5s
+      branch: gcp-integration
+  - name: dependency-cache
+    type: npm-cache
+    source:
+      <<: *repo-source
+      paths:
+        - package.json
+  - name: release-artifact
+    type: google-cloud-storage
+    source:
+      bucket: 5e04f35d
+      regexp: releases/brandwatch-react-app-(.*).tar.gz"
+      json_key: ((gcs-token))
+
+jobs:
+  - name: install-dependencies
+    plan:
+      - get: brandwatch-react-app
+        trigger: true
+      - get: dependency-cache
+  - name: run-tests
+    plan:
+      - get: brandwatch-react-app
+        trigger: true
+        passed: [install-dependencies]
+      - get: dependency-cache
+        passed: [install-dependencies]
+      - aggregate:
+        - task: run lint rules
+          file: brandwatch-react-app/ci/tasks/run_lint.yml
+        - task: run unit tests
+          file: brandwatch-react-app/ci/tasks/run_tests.yml
+  - name: run-build
+    plan:
+      - get: dependency-cache
+        passed: [run-tests]
+      - get: brandwatch-react-app
+        trigger: true
+        passed: [run-tests]
+      - task: run build
+        file: brandwatch-react-app/ci/tasks/run_build.yml
+      - put: release-artifact
+        params: { file: ./public/brandwatch-react-app-*.tar.gz }
+  - name: deploy-stage
+    plan:
+      - get: release-artifact
+        trigger: true
+        passed: [run-build]
+      - get: brandwatch-react-app
+        trigger: true
+        passed: [run-build]
+      - task: deploy to stage
+        file: brandwatch-react-app/ci/tasks/run_deploy.yml
+        params: {
+          GCP_SERVICE_ACCOUNT_KEY: ((gcs-token)),
+          STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
+        }
+  - name: run-stage-automation
+    plan:
+      - get: brandwatch-react-app
+        trigger: true
+        passed: [deploy-stage]
+      - task: run automation on stage
+        file: brandwatch-react-app/ci/tasks/run_automation.yml
+        params: {
+          STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
+        }
+  - name: deploy-live
+    plan:
+      - get: release-artifact
+        trigger: true
+        passed: [run-build]
+      - get: brandwatch-react-app
+        trigger: true
+        passed: [run-stage-automation]
+      - task: deploy to live
+        file: brandwatch-react-app/ci/tasks/run_deploy.yml
+        params: {
+          GCP_SERVICE_ACCOUNT_KEY: ((gcs-token)),
+          STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
+        }

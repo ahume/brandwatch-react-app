@@ -1,1 +1,2 @@
+ci/credentials.yml
 ci/gcs-token.json

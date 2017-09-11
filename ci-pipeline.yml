@@ -1,0 +1,83 @@
+resource_types:
+  - name: npm-cache
+    type: docker-image
+    source:
+      repository: ymedlop/npm-cache-resource
+      tag: latest
+      yarn-support: true
+  - name: google-cloud-storage
+    type: docker-image
+    source:
+      repository: frodenas/gcs-resource
+
+resources:
+  - name: brandwatch-react-app
+    type: git
+    source: &repo-source
+      uri: https://github.com/thatguynamedandy/brandwatch-react-app
+      check_every: 5s
+      branch: gcp-integration
+  - name: dependency-cache
+    type: npm-cache
+    source:
+      <<: *repo-source
+      paths:
+        - package.json
+  - name: gcs-bucket
+    type: google-cloud-storage
+    source:
+      bucket: 5e04f35d
+      regexp: releases/brandwatch-react-app-(.*).tar.gz"
+      json_key: |
+        {
+          "type": "service_account",
+          "project_id": "bw-stage-my0",
+          "private_key_id": "f7547f2ead4a26dcdfe1ab8d6905285a304d81b0",
+          "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzi73hgg6i0yqE\nTo4YROc5N5YSgEWZxKjNoRZ0ESbEAyS/SY8y6K9s058mBc8EGfqpfuXAtMCfPypX\nlmp0XH95Ep0iiJEmOx/+M9aLfiCi3yQKFECApOF7wzZ6Kxe13CMlHIOkqXJKbnUC\nWV6OO+WKZ9mxrsysNVIy9MOYtZNX7myvNmWXYL9xQAZvl4jf4anmkhbjyYBNnQXq\nm+KxMFtwlvURVxR94/yzR3P51E4eNzieF2CqQ65sAHf90MT9HkLXLLviFYMxIK55\nxSYXEz0Ryxg0hnXv97MnR25TBIMK3bnzT6OPp1hs1EdU5wGExPQ7TFlVqQr+hEiG\nE9QvDS29AgMBAAECggEAHiFXTh67QgvZ2LYuFliJzQpM/vHTvEhKY6ei0vuF2+MD\nKa64fzyZI9QnowPah7+sVwFaoQo0QQUin+w4FSrooXLEN+VfJmFJrykX2fTimTKF\nI8PeRzhkNpa976aHphc5NqMgXGOrMF50+F3zBj96980RtUW2RzfzgWWd5WSjQ2AR\nOFZK+mp9cYVw8/4EgfBghNY/2GiV3hAM6+jsQDk2UxJo5ShfEengCHikL0iw/IKa\n62CO+z9nH/G7QW8ehya+xRygkW1JaBXYi6iubkRLXUm7e81+iVTcX91S9SSgOg5m\n8s2OxElaqtZ0cCpvEzV7YlQfs5fvuZfO4dyunP2/QQKBgQDt6C8/+nNRClSquiQe\nKOuRyc5pzkRz4UK+t1+RG650IfvGv6bR46wPB0S1pHJXk/NnM2S0AE0jp8ZlNT2w\nGr1otL2b3esDzpEBTupEc8AcGm36EneALpM2MaTNOYQe28Tp/R0NlgM87Vzfa2pl\nk7cmVw2uCLMXDzWVd75yro1y+QKBgQDBM1LcCpMG3ahnFMVLJvMOug1a5q0r7Nfn\nfHfzVQryDez6GH2ml/Y9+ChALJS/QKw0h85piaVL+wA5uNShYLIvAXD+osdRf1lV\nVOlDtHx6LFz1yBfv3tQhmpUz3401VbjXYd1y4Iuw4o242tk4+e7JGdb+LFW66s10\nZu+ObyA95QKBgEe8F+sxqG3KMKdeAx/49Lb747pxkKBkTszU3AMUFrE7wgA2r6Vg\nAfRyG5ytnjCcEuuOSpIf+SKEJ0VDHXupRG16+iUyb/ew5HZBhk/nmwieS4T45oGH\nCapwo6Gh8x2e5KwtPwJmtkk7xSI08Fr6hGISI7TTOLT+SAjul0VbLpl5AoGAQdDw\nK1HW4IHmeqdSxtVP+/ZZ0lu/JrWan5uBaX3RKsCfuFtbgsNF+bpuS95kFfs8LvEM\n2lsv2oB5hTB4DznXubet/LELYbIWhsFUbeIwfZZbXMd7kBXDAmec6H0Bp+e5/nWy\ncQ4ZyHqFeTHkykoqlIue+Bu2YOTYdQ0UEtu8ihkCgYApu8e0v9A6FTsYkqtYttuh\nGp/DSz9zmlNBzRGLyCQKKdgb8i+NMgp0FOAoPSNIyiMlGOU/QepFZrQ2D+bSBHJn\n6KqO6VjgvlP6SSGL1A5kWFnEf9TWRZLp3RCGhXcWj9nlFti2TlEvR5fVSwdtokPH\nLzdkWRZ83T8sCncZy+7LxA==\n-----END PRIVATE KEY-----\n",
+          "client_email": "concourse-ci@bw-stage-my0.iam.gserviceaccount.com",
+          "client_id": "111736355747806617186",
+          "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+          "token_uri": "https://accounts.google.com/o/oauth2/token",
+          "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+          "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/concourse-ci%40bw-stage-my0.iam.gserviceaccount.com"
+        }
+
+
+jobs:
+  - name: install-dependencies
+    plan:
+      - get: brandwatch-react-app
+        trigger: true
+      - get: dependency-cache
+  - name: run-tests
+    plan:
+      - get: brandwatch-react-app
+        trigger: true
+        passed: [install-dependencies]
+      - get: dependency-cache
+        passed: [install-dependencies]
+      - aggregate:
+        - task: run lint rules
+          file: brandwatch-react-app/ci/tasks/run_lint.yml
+        - task: run unit tests
+          file: brandwatch-react-app/ci/tasks/run_tests.yml
+  - name: run-build
+    plan:
+      - get: brandwatch-react-app
+        trigger: true
+        passed: [run-tests]
+      - get: dependency-cache
+        passed: [run-tests]
+      - task: run build
+        file: brandwatch-react-app/ci/tasks/run_build.yml
+      - put: gcs-bucket
+        params: { file: ./public/brandwatch-react-app-*.tar.gz }
+  - name: deploy-stage
+    plan:
+      - get: gcs-bucket
+        trigger: true
+        passed: [run-build]
+      - get: brandwatch-react-app
+        passed: [run-build]
+      - task: deploy to stage
+        file: brandwatch-react-app/ci/tasks/run_stage_deploy.yml

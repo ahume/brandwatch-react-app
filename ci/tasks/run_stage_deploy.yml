@@ -7,8 +7,12 @@ image_resource:
     repository: node
     tag: latest
 
+params:
+  GCP_SERVICE_ACCOUNT_KEY: 'abc'
+
 inputs:
-  - name: gcs-resource
+  - name: brandwatch-react-app
+  - name: gcs-bucket
 
 run:
   path: brandwatch-react-app/ci/scripts/run_stage_deploy.sh

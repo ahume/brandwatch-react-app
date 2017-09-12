@@ -9,6 +9,11 @@ resource_types:
     type: docker-image
     source:
       repository: frodenas/gcs-resource
+  - name: slack-notification
+    type: docker-image
+    source:
+      repository: cfcommunity/slack-notification-resource
+      tag: latest
 
 resources:
   - name: brandwatch-react-app
@@ -28,7 +33,11 @@ resources:
     source:
       bucket: 5e04f35d
       regexp: releases/brandwatch-react-app-(.*).tar.gz"
-      json_key: ((gcs-token))
+      json_key: ((gcs-prod-token))
+  - name: slack
+    type: slack-notification
+    source:
+      url: ((slack-hook))
 
 jobs:
   - name: install-dependencies
@@ -58,7 +67,7 @@ jobs:
       - task: run build
         file: brandwatch-react-app/ci/tasks/run_build.yml
       - put: release-artifact
-        params: { file: ./public/brandwatch-react-app-*.tar.gz }
+        params: { file: ./public/brandwatch-react-app.*.tar.gz }
   - name: deploy-stage
     plan:
       - get: release-artifact
@@ -70,7 +79,7 @@ jobs:
       - task: deploy to stage
         file: brandwatch-react-app/ci/tasks/run_deploy.yml
         params: {
-          GCP_SERVICE_ACCOUNT_KEY: ((gcs-token)),
+          GCP_SERVICE_ACCOUNT_KEY: ((gcs-stage-token)),
           STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
         }
   - name: run-stage-automation
@@ -94,6 +103,19 @@ jobs:
       - task: deploy to live
         file: brandwatch-react-app/ci/tasks/run_deploy.yml
         params: {
-          GCP_SERVICE_ACCOUNT_KEY: ((gcs-token)),
+          GCP_SERVICE_ACCOUNT_KEY: ((gcs-prod-token)),
           STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
         }
+  - name: run-live-automation
+    plan:
+      - get: brandwatch-react-app
+        trigger: true
+        passed: [deploy-live]
+      - task: run automation on live
+        file: brandwatch-react-app/ci/tasks/run_automation.yml
+        params: {
+          STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
+        }
+      - put: slack
+        params:
+          text: "Success"

@@ -7,8 +7,13 @@ STORAGE_BUCKET=my-platform-stage-gcp0-bwcom-net
 echo $GCP_SERVICE_ACCOUNT_KEY > key.json
 gcloud auth activate-service-account --key-file key.json
 
+export version = $(<brandwatch-react-app/.git/ref)
+
+echo 'version'
+echo $version
+
 cd release-artifact;
-tar -xvzf brandwatch-react-app-1.tar.gz
+tar -xvzf brandwatch-react-app.$version.tar.gz
 
 gsutil \
   -h "Content-Encoding:gzip" \

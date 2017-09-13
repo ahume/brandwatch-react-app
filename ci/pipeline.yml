@@ -32,7 +32,7 @@ resources:
     type: google-cloud-storage
     source:
       bucket: 5e04f35d
-      regexp: releases/brandwatch-react-app-(.*).tar.gz"
+      regexp: releases/brandwatch-react-app.(.*).tar.gz"
       json_key: ((gcs-prod-token))
   - name: slack
     type: slack-notification
@@ -67,7 +67,7 @@ jobs:
       - task: run build
         file: brandwatch-react-app/ci/tasks/run_build.yml
       - put: release-artifact
-        params: { file: ./public/brandwatch-react-app.*.tar.gz }
+        params: { file: ./build/brandwatch-react-app.*.tar.gz }
   - name: deploy-stage
     plan:
       - get: release-artifact
@@ -104,7 +104,7 @@ jobs:
         file: brandwatch-react-app/ci/tasks/run_deploy.yml
         params: {
           GCP_SERVICE_ACCOUNT_KEY: ((gcs-prod-token)),
-          STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
+          STORAGE_BUCKET: my-platform-prod-gcp0-bwcom-net
         }
   - name: run-live-automation
     plan:

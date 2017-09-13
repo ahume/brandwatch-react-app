@@ -12,7 +12,7 @@ inputs:
   - name: dependency-cache
 
 outputs:
-  - name: public
+  - name: build
 
 run:
   path: brandwatch-react-app/ci/scripts/run_build.sh

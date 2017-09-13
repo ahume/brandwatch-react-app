@@ -6,7 +6,10 @@ env
 mv dependency-cache/node_modules brandwatch-react-app
 cd brandwatch-react-app && yarn build
 
-VERSION = $(<.git/refs/heads/gcp-integration)
+VERSION=$(<.git/refs/heads/gcp-integration)
+RESOURCE=brandwatch-react-app.$VERSION.tar.gz
 
-tar -cvzf ./brandwatch-react-app.$VERSION.tar.gz  --directory=./public .
+echo "$VERSION"
+
+tar -cvzf $RESOURCE  --directory=./public .
 cp ./brandwatch-react-app.$VERSION.tar.gz ../public

@@ -16,13 +16,13 @@ resource_types:
       tag: latest
 
 resources:
-  - name: brandwatch-react-app
+  - name: source
     type: git
     source: &repo-source
       uri: https://github.com/thatguynamedandy/brandwatch-react-app
       check_every: 5s
       branch: gcp-integration
-  - name: dependency-cache
+  - name: node-modules
     type: npm-cache
     source:
       <<: *repo-source
@@ -42,30 +42,30 @@ resources:
 jobs:
   - name: install-dependencies
     plan:
-      - get: brandwatch-react-app
+      - get: source
         trigger: true
-      - get: dependency-cache
+      - get: node-modules
   - name: run-tests
     plan:
-      - get: brandwatch-react-app
+      - get: source
         trigger: true
         passed: [install-dependencies]
-      - get: dependency-cache
+      - get: node-modules
         passed: [install-dependencies]
       - aggregate:
         - task: run lint rules
-          file: brandwatch-react-app/ci/tasks/run_lint.yml
+          file: source/ci/tasks/run_lint.yml
         - task: run unit tests
-          file: brandwatch-react-app/ci/tasks/run_tests.yml
+          file: source/ci/tasks/run_tests.yml
   - name: run-build
     plan:
-      - get: dependency-cache
+      - get: node-modules
         passed: [run-tests]
-      - get: brandwatch-react-app
+      - get: source
         trigger: true
         passed: [run-tests]
       - task: run build
-        file: brandwatch-react-app/ci/tasks/run_build.yml
+        file: source/ci/tasks/run_build.yml
       - put: release-artifact
         params: { file: ./build/brandwatch-react-app.*.tar.gz }
   - name: deploy-stage
@@ -73,22 +73,22 @@ jobs:
       - get: release-artifact
         trigger: true
         passed: [run-build]
-      - get: brandwatch-react-app
+      - get: source
         trigger: true
         passed: [run-build]
       - task: deploy to stage
-        file: brandwatch-react-app/ci/tasks/run_deploy.yml
+        file: source/ci/tasks/run_deploy.yml
         params: {
           GCP_SERVICE_ACCOUNT_KEY: ((gcs-stage-token)),
           STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
         }
   - name: run-stage-automation
     plan:
-      - get: brandwatch-react-app
+      - get: source
         trigger: true
         passed: [deploy-stage]
       - task: run automation on stage
-        file: brandwatch-react-app/ci/tasks/run_automation.yml
+        file: source/ci/tasks/run_automation.yml
         params: {
           STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
         }
@@ -97,22 +97,22 @@ jobs:
       - get: release-artifact
         trigger: true
         passed: [run-build]
-      - get: brandwatch-react-app
+      - get: source
         trigger: true
         passed: [run-stage-automation]
       - task: deploy to live
-        file: brandwatch-react-app/ci/tasks/run_deploy.yml
+        file: source/ci/tasks/run_deploy.yml
         params: {
           GCP_SERVICE_ACCOUNT_KEY: ((gcs-prod-token)),
           STORAGE_BUCKET: my-platform-prod-gcp0-bwcom-net
         }
   - name: run-live-automation
     plan:
-      - get: brandwatch-react-app
+      - get: source
         trigger: true
         passed: [deploy-live]
       - task: run automation on live
-        file: brandwatch-react-app/ci/tasks/run_automation.yml
+        file: source/ci/tasks/run_automation.yml
         params: {
           STORAGE_BUCKET: my-platform-stage-gcp0-bwcom-net
         }

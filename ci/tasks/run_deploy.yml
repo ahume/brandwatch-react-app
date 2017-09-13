@@ -8,8 +8,8 @@ image_resource:
     tag: latest
 
 inputs:
-  - name: brandwatch-react-app
+  - name: source
   - name: release-artifact
 
 run:
-  path: brandwatch-react-app/ci/scripts/run_deploy.sh
+  path: source/ci/scripts/run_deploy.sh

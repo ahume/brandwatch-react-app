@@ -8,7 +8,7 @@ image_resource:
     tag: latest
 
 inputs:
-  - name: brandwatch-react-app
+  - name: source
 
 run:
-  path: brandwatch-react-app/ci/scripts/run_automation.sh
+  path: source/ci/scripts/run_automation.sh

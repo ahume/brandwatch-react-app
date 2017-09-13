@@ -8,8 +8,8 @@ image_resource:
     tag: latest
 
 inputs:
-  - name: brandwatch-react-app
-  - name: dependency-cache
+  - name: source
+  - name: node-modules
 
 run:
-  path: brandwatch-react-app/ci/scripts/run_tests.sh
+  path: source/ci/scripts/run_tests.sh
